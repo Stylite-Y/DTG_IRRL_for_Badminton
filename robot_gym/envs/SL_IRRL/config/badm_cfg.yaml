@@ -1,0 +1,107 @@
+# The cfg contains configuration files related to robots, environment, and training
+general: 
+    sim_dt: 0.001                     # The simulation step in the XML file should be consistent with the XML file
+    ctrl_dt: 0.002                    # control step of the controller
+    net_freq: 500                     # The update frequency of the network
+    max_time_env: 0.8                 # sampling time
+    n_envs: 60                        # The number of vectorized environments used during single threading
+    multi: True                       # Whether to use multi-threaded computing
+    multi_env: 60                     # The number of environments used in multi-threading
+    algo: "PPO"
+    mlp_net_scale: 512                # network size
+    nminibatches: 4                   # Divide sampling into nminibatches for learning
+    n_epochs: 8                       # The number of times of the sampling are repeatedly learned
+    gamma: 0.995                      # discount coef 
+    gae_lambda: 0.99                  # lambda coef in GAE
+    log_std_init: -0.1                # init std (log) 
+    log_std_min: -1.6                 # min std (log)
+    video_enable: False               # video record flag
+    history_frame: 1                  # historical observation frame used in training
+
+    train_stage: 'Imitation'          # train stage: Imitation or Relaxation
+    n_episodes: 16000                 # maximum number of iterations for training
+    learning_rate: 0.0001             # learning rate
+    log_every_episode: 500            # Record data every log_ every episode
+    
+
+robot:
+    # 机器人的关键几何尺寸
+    Abad_Pitch: 0.171                 # length from shoulder roll to pitch joint
+    Pitch_Yaw: 0.135                  # length from shoulder pitch to yaw joint
+    Upper: 0.34                       # length from shoulder yaw to elbow joint
+    Lower: 0.32                       # length from elbow joint to wrist joint
+    Racket: 0.54                      # racket length
+    Arm_Init: [0.0, 3.2, 1.6, 0.4]    # arm initial joint angle
+
+# PD params
+controller:
+    ShoulderRoll:
+        kp: 6
+        ki: 0.0
+        kd: 0.2
+    ShoulderPitch:
+        kp: 6
+        ki: 0.0
+        kd: 0.2
+    Elbow:
+        kp: 6
+        ki: 0.0
+        kd: 0.2
+    WristPitch:
+        kp: 4
+        ki: 0.0
+        kd: 0.15
+
+scale:
+    # Badminton range: position and velocity
+    min:
+        ball_state:   [-2.0, -2.0, 0.0, -2.0, -12.0, -10.0]
+    max:
+        ball_state:   [2.0, 5.0, 3.0, 2.0, 12.0, 10.0]
+    
+    # z-score Standardization of joint angle: standard value=(actual value - mean)/standard deviation
+    action_mean: [0.0, 2.8, 1.2, 0.0]             # mean value of action
+    action_std: [0.25, 0.25, 0.25, 0.25]          # std coef of action
+
+environment :
+    # reward
+    reward_name: ['JointRef', 'JointDotRef', 'TargetPoint', 'Power',
+                  'Smooth', 'Smooth_vel', 'Collision', 'Touch', 'Terminated']
+    reward_weigh:                         
+        JointRef: 0.7                     # joint angle mimic weigh
+        JointDotRef:  0.3                 # joint angular velocity mimic weigh
+        TargetPoint: 0.0                # landing target area weigh
+        Power: 0.0                        # power penalty weigh
+        Smooth: 0.1                       # first-order smooth weigh
+        Smooth_vel: 0.1                   # second-order smooth weigh
+        Collision: 0.2                    # collision penalty weigh
+        Touch: 0.0                      # racket-ball touch weigh
+        Terminated: 1.0                   # terminate weigh 
+
+    truncated:                            # truncated condition
+        max_time: 2.5                     # The maximum running time of the environment
+
+# randomization
+randomization:
+    enable: True                     
+    Ball:
+        Cd: 0.02                                        # air drag coef randomization range
+        ball_pos: [0.1, 0.1, 0.1, 0, 0, 0, 0]           # ball pos randomization range
+        ball_vel: [0.0, 0.0, 0.0, 0, 0, 0]              # ball vel randomization range
+    Joint:
+        angle: [0.1, 0.1, 0.1, 0.1]                     # joint angle randomization range
+
+# Noise
+noise:
+    enable: True
+    angle: 0.01                 # Joint angle noise
+    ang_vel: 1.0                # Joint angular velocity noise
+    ball_pos: 0.01              # ball pos noise
+    ball_vel: 0.1               # ball vel noise
+    torque_val: 0.1             # Torque noise, percentage
+    delay_enable: True          # delay flag
+    delay_val: 20               # Maximum delay, in milliseconds
+    pd_val: 0.1                 # Robot joint PD noise, percentage
+    joint_fric_val: 0.025       # Relative friction resistance of robot joints
+    joint_damp_val: 0.2         # Relative damping of robot joints
+

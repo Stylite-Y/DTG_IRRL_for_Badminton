@@ -1,0 +1,63 @@
+<mujoco model="KirinApollo_scene">
+  <include file="KirinApollo.xml"/>
+  <statistic center="0 0 0.1" extent="0.8"/>
+
+  <visual>
+    <map force="0.1" zfar="30"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <quality shadowsize="2048"/>
+    <global offwidth="800" offheight="800"/>
+  </visual>
+
+  <default>
+    <default class="KirinApollo_scene">
+      <default class="visual_ball">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+        <default class="ball">
+            <geom material="ball"/>
+        </default>
+      </default>
+
+      <default class="collision2">
+          <geom contype="1" conaffinity="15" group="3" solref="0.001 0.62"  solimp="0.9 0.95"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" 
+      rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+    <material name="ball" specular="0" shininess="0.25" rgba="1.0 0.9 0.0 1"/>
+    <mesh   name="badminton"                          file="Shutt.STL" />
+  </asset>
+
+  
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true" castshadow="false"/>
+    <geom name="floor" pos="0 0 0" size="0 0 .125" type="plane" contype="1" conaffinity="3" material="groundplane" solimp="0.005 1"  condim="6" friction="0.4 0.6 0.8"/>
+    <body name="Shutt" pos="0 0.0 0.0" childclass="KirinApollo_scene" euler=" 0 0 0">
+        <geom class="ball" mesh="badminton"/>
+        <geom class="collision2" name="shutt" type="sphere" size="0.013" pos="0 0.0 0" friction="0.4 0.6 0.8" condim="6"/>    
+        <site name="ShuttIMU" size="0.01" pos="0 0.0 0" group="0"/>
+        <inertial pos="0.0 0.0 0.0" mass="0.006"  diaginertia="0.000001  0.000001  0.000001"/> 
+        <joint name="freeball"  pos="0 0 0" type="free" damping="0.0"/>
+
+    </body>
+
+  </worldbody>
+
+  <sensor>
+      <accelerometer name="ShuttAcc" site="ShuttIMU" noise="1e-2"/>
+      <gyro name="ShuttGyro" site="ShuttIMU" noise="5e-4"/>
+      <velocimeter name="ShuttVel" site="ShuttIMU" noise="5e-4"/>
+      <touch name="ShuttTouch" site="ShuttIMU"/>
+  </sensor>
+
+</mujoco>
+
+
+

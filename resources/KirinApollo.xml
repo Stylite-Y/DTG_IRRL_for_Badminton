@@ -1,0 +1,152 @@
+<mujoco model="KirinApollo">
+    
+  <compiler eulerseq="xyz" angle="radian" meshdir="meshes" texturedir="meshes" autolimits="true"/>
+  <option timestep="0.001"/>
+
+  <default>
+    <default class="KirinApollo">
+      <default class="visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+          <default class="abad_pitch">
+            <geom material="abad_pitch"/>
+          </default>
+          <default class="link_upper">
+            <geom material="link_upper"/>
+          </default>
+          <default class="link_low">
+            <geom material="link_low"/>
+          </default>
+          <default class="racket">
+            <geom material="racket"/>
+          </default>
+      </default>
+
+      <default class="collision">
+          <geom condim="3"  group="3"  solref="0.001 0.6"  solimp="0.9 0.95"/>
+          <default class="base_collision">
+              <!-- 0001 and 0110 -->
+              <geom contype="1" conaffinity="6"/>
+          </default>
+          <default class="upper_collision">
+              <!-- 0010 and 0001 -->
+              <geom contype="2" conaffinity="1"/>
+          </default>
+          <default class="lower_collision">
+              <!-- 0100 and 1010 -->
+              <geom contype="4" conaffinity="10"/>
+          </default>
+          <default class="racket_collision">
+              <!-- 1000 and 0111 -->
+              <geom contype="8" conaffinity="7"/>
+          </default>
+      </default>
+
+      <!--
+          1、max speed，rpm
+          2、critical speed，rpm
+          3、inertia of motor，kgm^2
+      -->
+      <default class="Shoulder_motor_24_roll">
+        <motor ctrlrange="-15 15" user="2425 1604 0.0003"/>
+      </default>      
+      <default class="Shoulder_motor_24_pitch">
+        <motor ctrlrange="-15 15" user="2425 1604 0.0003"/> 
+      </default>     
+      <default class="Elbow_motor_15">
+        <motor ctrlrange="-15 15" user="2425 1604 0.0003"/>
+      </default>        
+      <default class="Wrist_motor_10_pitch">
+        <motor ctrlrange="-2.3 2.3" user="4150 3600 0.000048"/>
+      </default>
+    </default>
+  </default>
+
+  
+  <asset>
+
+    <material name="abad_pitch" specular="0" shininess="0.25" rgba="0.55 0.55 0.55 1"/>
+    <material name="link_upper" specular="0" shininess="0.25" rgba="0.345 0.725 1 1"/>
+    <material name="link_low" specular="0" shininess="0.25" rgba="0.345 0.725 0.467 1"/>
+    <material name="motor" specular="0" shininess="0.25" rgba="0.2 0.2 0.2 1"/>
+    <material name="racket" specular="0" shininess="0.25" rgba="0.94 0.94 0.94 1"/>
+
+    <mesh   name="Shoulder"                      file="FL_Hip.stl" />
+    <mesh   name="UpperArm"                      file="FL_Thigh.stl"/>
+    <mesh   name="ForeArm"                       file="forearm.STL"/>
+    <mesh   name="Racket"                        file="racket.STL" />
+  </asset>
+
+  
+  <worldbody>
+    <body name="Body" pos="0.0 -0.11 0.0" childclass="KirinApollo" euler=" 0 0 0">
+ 
+        <light name="spotlight" mode="track" pos="0 0 3" dir="0 0 -1"  castshadow="false"/>
+        <light name="front" mode="track" pos="3 0.2 1.5" dir="-1 0 0" castshadow="false"/>
+        <geom class="base_collision" name="base_pillar" type="cylinder" size="0.09 0.36" pos="0 0 0.36"/>
+        <geom class="abad_pitch" type="box" size="0.09 0.046 0.005" pos="0 0.046 0.725"/>
+        <geom class="abad_pitch" type="box" size="0.09 0.015 0.06" pos="0 0.077 0.80"/>
+        <geom class="base_collision" name="roll_fixed" type="box" size="0.09 0.015 0.08" pos="0 0.077 0.80"/>
+        <geom class="abad_pitch" type="box" size="0.02 0.08 0.0025" pos="0 0.1955 0.68"/>
+        <geom class="base_collision" name="support_part" type="box" size="0.02 0.06 0.0025" pos="0 0.1955 0.68"/>
+        <geom class="abad_pitch" type="box" size="0.02 0.008 0.08" pos="0 0.265 0.755"/>
+        
+        <camera name="side_view" pos="0 -2 -0.5" euler="1.57 0 0" mode="track"/>
+        <camera name="front_view" pos="2 0 -0.5" euler="0 1.57 1.57" mode="track"/>
+        <camera name="top_view" pos="0 0 2" euler="0 0 0" mode="track"/>
+        
+        <body name="Shouler" pos="0 0.171 0.81">
+            
+            <geom class="abad_pitch" mesh="Shoulder" euler="0 0 1.57"/>
+            <inertial pos="-3.14e-05 0.0031055 0.0008517" euler="0 0 1.57" mass="3.16" diaginertia="0.00785719 0.00691005 0.00615485"/>
+            <joint name="ShoulderRoll" pos="0 0 0" axis="0 1 0" range="-0.8 3.14" actuatorfrcrange="-350 350" damping="0.01" limited="true"/>
+            
+            <body name="UpperArm" pos="-0.135 0.0 0.0">
+                <geom class="link_upper" mesh="UpperArm"  euler="0 0 1.57"/>
+                <geom class="upper_collision" name="shoulder" type="cylinder" size="0.071 0.05" pos="0.01 0 0" euler="0 1.57 0"/>
+                <geom class="upper_collision" name="upper" type="box" size="0.03 0.04 0.15" pos="-0.01 -0.03 -0.12"/>
+                <inertial pos="0.018974 -0.0025376 -0.0504122"  euler="0 0 1.57" mass="5.25" diaginertia="0.0712873 0.070959 0.011287"/>
+                <joint name="ShoulderPitch" pos="0 0 0" axis="1 0 0" damping="0.05" range="-1.57 4.8"  limited="true"/>
+            
+                <body name="ForeArm" pos="-0.01 0 -0.34">
+                    <geom class="link_low" mesh="ForeArm"/>
+                    <geom class="lower_collision" name="lower" type="box" size="0.042 0.024 0.14" pos="0.0 0.0 -0.2"/>
+                    <inertial pos="0.0 0.0 -0.243" mass="1.58"  diaginertia="0.02511  0.02527  0.00124"/> 
+                    <joint name="Elbow" pos="0 0 0" axis="1 0 0" damping="0.05" range="0.3 2.5"  limited="true"/>
+                
+                    <body name="racket" pos="0 0 -0.32">
+                        <joint name="WristPitch" pos="0 0 0" axis="1 0 0" damping="0.05" range="-1.3 1.3"  limited="true"/>
+                        <geom class="racket" mesh="Racket" pos="0 0 -0.055"/>
+                        <geom class="racket_collision" name="racket1" type="cylinder" size="0.01 0.2" pos="0.0 0.0 -0.25"/>
+                        <site name="HandIMU" size="0.01" pos="0 0 -0.1" group="0"/>
+                        <site name="EndIMU" size="0.01" pos="0 0 -0.6" group="0"/>
+                        <geom class="racket_collision" name="racket2" type="cylinder" size="0.085 0.04" pos="0 0.04 -0.59" euler="1.57 0 0"  friction="0.8 0.8 0.8"/>
+                        <inertial pos="0.0 0.0 -0.35" mass="0.09"  diaginertia="0.004425  0.004448  0.000227"/> 
+                    </body>
+                </body>
+            </body>
+        </body>
+    </body>
+
+  </worldbody>
+
+  <actuator>
+      <motor class = "Shoulder_motor_24_roll" name="ShoulderRoll" joint="ShoulderRoll" gear="24"/>
+      <motor class = "Shoulder_motor_24_pitch" name="ShoulderPitch" joint="ShoulderPitch" gear="24"/>
+      <motor class = "Elbow_motor_15" name="Elbow" joint="Elbow" gear="15"/>
+      <motor class = "Wrist_motor_10_pitch" name="WristPitch" joint="WristPitch" gear="10"/>
+  </actuator>
+
+  <sensor>
+      <accelerometer name="HnadAcc" site="HandIMU" noise="1e-2"/>
+      <gyro name="HandGyro" site="HandIMU" noise="5e-4"/>
+      <velocimeter name="HandVel" site="HandIMU" noise="5e-4"/>
+      
+      <accelerometer name="EndAcc" site="EndIMU" noise="1e-2"/>
+      <gyro name="EndGyro" site="EndIMU" noise="5e-4"/>
+      <velocimeter name="EndVel" site="EndIMU" noise="5e-4"/>
+      <touch name="EndTouch" site="EndIMU"/>
+  </sensor>
+</mujoco>
+
+
+
