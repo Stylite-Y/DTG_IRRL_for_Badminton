@@ -1,7 +1,6 @@
 # Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning
-Codebase for the "Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
+Codebase for the "<a href="https://stylite-y.github.io/SL-IRRL-For-Badminton/" target="_blank">Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning</a>" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HZ4ji_LRuA0" frameborder="0" allowfullscreen></iframe>
 
 Authors: <a href="https://github.com/Stylite-Y" target="_blank">Yanyan Yuan</a>, Yucheng Tao, Shaowen Cheng, Yanhong Liang, <a href="https://github.com/WoodenJin" target="_blank">Yongbin Jin</a>, Hongtao Wang \
 Website: https://stylite-y.github.io/SL-IRRL-For-Badminton/ \
