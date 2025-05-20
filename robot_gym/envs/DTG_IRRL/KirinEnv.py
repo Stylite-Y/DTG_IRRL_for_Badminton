@@ -330,7 +330,7 @@ class KirinEnv(MujocoEnv, utils.EzPickle):
         self.ball_target_state = np.zeros(7)      # ball target state of the ball in plane
         
         # pridiciton network load
-        self.session = ort.InferenceSession(self.Dirpath + '/config/' + 'SL_MLP.onnx')
+        self.session = ort.InferenceSession(self.Dirpath + '/config/' + 'DTG_MLP.onnx')
 
         ## Observations defination: 18D
         # joint angle of robotic arm：4D

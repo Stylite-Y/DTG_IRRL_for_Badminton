@@ -1,9 +1,9 @@
 # Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning
-Codebase for the "<a href="https://stylite-y.github.io/SL-IRRL-For-Badminton/" target="_blank">Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning</a>" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
+Codebase for the "<a href="https://stylite-y.github.io/DTG-IRRL-For-Badminton/" target="_blank">Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning</a>" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
 
 
 Authors: <a href="https://github.com/Stylite-Y" target="_blank">Yanyan Yuan</a>, Yucheng Tao, Shaowen Cheng, Yanhong Liang, <a href="https://github.com/WoodenJin" target="_blank">Yongbin Jin</a>, Hongtao Wang \
-Website: https://stylite-y.github.io/SL-IRRL-For-Badminton/ \
+Website: https://stylite-y.github.io/DTG-IRRL-For-Badminton/ \
 Paper: subumitted to Ral
 
 ## Installation
@@ -33,7 +33,7 @@ Paper: subumitted to Ral
     ```
 
 ## CODE STRUCTURE
-1. Each environment is defined by an env file (`robot_gym/envs/SL_IRRL/KirinEnv.py`), a config file (`robot_gym/envs/SL_IRRL/config/badm_cfg.py`) and callback file (`robot_gym/envs/SL_IRRL/Custom.py`). The config file contains environment parameters, training parameters and so on.
+1. Each environment is defined by an env file (`robot_gym/envs/DTG_IRRL/KirinEnv.py`), a config file (`robot_gym/envs/DTG_IRRL/config/badm_cfg.py`) and callback file (`robot_gym/envs/DTG_IRRL/Custom.py`). The config file contains environment parameters, training parameters and so on.
 2. The robotic arm model file is contained in (`resources`) folder.
 3. The supervised learning prediction network model is in `config` folder.
 4. Training and Test file: `robot_gym/envs/scripts`.
@@ -43,7 +43,7 @@ Paper: subumitted to Ral
 ```shell
 python robot_gym/envs/scripts/train.py
 ```
-- The training and env parameters is in `robot_gym/envs/SL_IRRL/config/badm_cfg.py` file.
+- The training and env parameters is in `robot_gym/envs/DTG_IRRL/config/badm_cfg.py` file.
 - Imitation stage: 
 ```python
 # config.yaml

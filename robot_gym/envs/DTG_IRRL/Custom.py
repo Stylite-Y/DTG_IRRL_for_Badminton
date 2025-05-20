@@ -82,11 +82,11 @@ class CustomCallback(BaseCallback):
             os.makedirs(self.log_dir)
 
         # config保存
-        cfg_path = self.filepath + '/robot_gym/envs/SL_IRRL/config/badm_cfg.yaml'
+        cfg_path = self.filepath + '/robot_gym/envs/DTG_IRRL/config/badm_cfg.yaml'
         # train保存
         train_path = self.filepath + '/robot_gym/scripts/train.py' 
         # env save
-        source_path = self.filepath + '/robot_gym/envs/SL_IRRL/'
+        source_path = self.filepath + '/robot_gym/envs/DTG_IRRL/'
 
         print(cfg_path)
         print(train_path)

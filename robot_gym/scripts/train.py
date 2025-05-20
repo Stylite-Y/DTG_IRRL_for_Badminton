@@ -1,7 +1,7 @@
 """
 Date: 2025.04.16
 Description:
-    SL-IRRL framework algorithm based on a 4 DOF robotic arm.
+    DTG_IRRL framework algorithm based on a 4 DOF robotic arm.
 """
 
 import os
@@ -22,10 +22,10 @@ import numpy as np
 from torch import nn
 from tensorboard import program
 from stable_baselines3 import PPO
-from robot_gym.envs.SL_IRRL.KirinEnv import KirinEnv 
+from robot_gym.envs.DTG_IRRL.KirinEnv import KirinEnv 
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.utils import get_schedule_fn
-from robot_gym.envs.SL_IRRL.Custom import CustomCallback, CustomWrappedEnv, CustomActorCriticPolicy
+from robot_gym.envs.DTG_IRRL.Custom import CustomCallback, CustomWrappedEnv, CustomActorCriticPolicy
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
 
 
@@ -53,7 +53,7 @@ if __name__=="__main__":
     Dirpath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
     # config file
-    yaml_dir = Dirpath + '/robot_gym/envs/SL_IRRL/config/badm_cfg.yaml'
+    yaml_dir = Dirpath + '/robot_gym/envs/DTG_IRRL/config/badm_cfg.yaml'
     with open(yaml_dir,'r') as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
 
