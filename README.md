@@ -1,5 +1,5 @@
-# Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning
-Codebase for the "<a href="https://stylite-y.github.io/DTG-IRRL-For-Badminton/" target="_blank">Real-Time Robotic Badminton Striking via Hybrid Supervised and Reinforcement Learning</a>" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
+# Imitation-Relaxation Reinforcement Learning for Sparse Badminton Strikes via Dynamic Trajectory Generation
+Codebase for the "<a href="https://stylite-y.github.io/DTG-IRRL-For-Badminton/" target="_blank">Imitation-Relaxation Reinforcement Learning for Sparse Badminton Strikes via Dynamic Trajectory Generation</a>" project.This repository contains the code necessary to train a 4DOf robotic arm (named Kirinarm) to learn bandminton striking. 
 
 
 Authors: <a href="https://github.com/Stylite-Y" target="_blank">Yanyan Yuan</a>, Yucheng Tao, Shaowen Cheng, Yanhong Liang, <a href="https://github.com/WoodenJin" target="_blank">Yongbin Jin</a>, Hongtao Wang \
