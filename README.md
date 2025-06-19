@@ -4,7 +4,7 @@ Codebase for the "<a href="https://stylite-y.github.io/DTG-IRRL-For-Badminton/" 
 
 Authors: <a href="https://github.com/Stylite-Y" target="_blank">Yanyan Yuan</a>, Yucheng Tao, Shaowen Cheng, Yanhong Liang, <a href="https://github.com/WoodenJin" target="_blank">Yongbin Jin</a>, Hongtao Wang \
 Website: https://stylite-y.github.io/DTG-IRRL-For-Badminton/ \
-Paper: subumitted to Ral
+Paper: subumitted to Frontiers in Neurorobotics
 
 ## Installation
 1. create a new python virtual env with the python 3.8.10 (recommended):
