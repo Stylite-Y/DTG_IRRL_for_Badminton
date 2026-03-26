@@ -39,7 +39,12 @@ Paper: subumitted to Frontiers in Neurorobotics
 4. Training and Test file: `robot_gym/envs/scripts`.
 
 ## Usage 
-1. Train
+1. Prediction Model Train
+```shell
+python robot_gym/envs/TrajPredict/TrajPredict.py
+```
+
+2. Train
 ```shell
 python robot_gym/envs/scripts/train.py
 ```
